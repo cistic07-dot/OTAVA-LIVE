@@ -2,73 +2,496 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>OTAVA-LIVE</title>
+
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(#0b5fa5,#6ec6ff);color:#fff}
-header{text-align:center;padding:25px}
-h1{margin:0}
-.subtitle{opacity:.9}
-.clock{text-align:center;font-size:22px;margin:10px 0 20px}
-.card{max-width:760px;margin:15px auto;padding:18px;border-radius:16px;background:rgba(255,255,255,.15)}
-.title{font-size:24px;font-weight:bold}
-.count{font-size:30px;margin-top:10px}
-.wave{position:fixed;left:0;right:0;bottom:0;height:60px;background:rgba(255,255,255,.2);animation:wave 5s ease-in-out infinite}
-.train{display:inline-block;animation:train 8s linear infinite}
-@keyframes train{0%{transform:translateX(-30px)}50%{transform:translateX(30px)}100%{transform:translateX(-30px)}}
-@keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
-</style>
-</head>
-<body>
-<header>
-<h1>🚣 OTAVA-LIVE</h1>
-<div class="subtitle">Odpočítávání do našich společných akcí</div>
-</header>
-<div class="clock" id="clock"></div>
 
-<div class="card">
-<div class="title"><span class="train">🚆</span> Rychlík do Ústí</div>
-<div>8. 8. 2026 • 12:51</div>
-<div class="count" id="vlak"></div>
-</div>
-
-<div class="card">
-<div class="title">🎸 Rock in Ústí</div>
-<div>8. 8. 2026 • 14:00</div>
-<div class="count" id="rock"></div>
-</div>
-
-<div class="card">
-<div class="title">🛶 Berounka – zveřejnění plakátu</div>
-<div>21. 8. 2026 • 17:00</div>
-<div class="count" id="ber"></div>
-</div>
-
-<div class="wave"></div>
-
-<script>
-const events=[
-{id:"vlak",date:new Date("2026-08-08T12:51:00+02:00"),done:"🚆 Vlak odjíždí!"},
-{id:"rock",date:new Date("2026-08-08T14:00:00+02:00"),done:"🎸 Rock začíná!"},
-{id:"ber",date:new Date("2026-08-21T17:00:00+02:00"),done:"🛶 Plakát zveřejněn!"}
-];
-function update(){
- const now=new Date();
- document.getElementById("clock").textContent=
- now.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"})+
- " • "+now.toLocaleTimeString("cs-CZ");
- events.forEach(e=>{
-   const el=document.getElementById(e.id);
-   let d=e.date-now;
-   if(d<=0){el.textContent=e.done;return;}
-   let days=Math.floor(d/86400000);
-   let h=Math.floor(d/3600000)%24;
-   let m=Math.floor(d/60000)%60;
-   let s=Math.floor(d/1000)%60;
-   el.textContent=`${days} dní ${h} h ${m} min ${s} s`;
- });
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
-update();setInterval(update,1000);
+
+body{
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    background:url("images/pozadi_berounka.png") center center/cover fixed;
+
+    color:white;
+
+    min-height:100vh;
+
+}
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,55,90,.45);
+
+    z-index:-1;
+
+}
+
+header{
+
+    text-align:center;
+
+    padding:25px 15px;
+
+}
+
+header img{
+
+    width:140px;
+
+    margin-bottom:10px;
+
+}
+
+header h1{
+
+    font-size:40px;
+
+    text-shadow:2px 2px 8px black;
+
+}
+
+header p{
+
+    font-size:20px;
+
+    margin-top:8px;
+
+    color:#e8f7ff;
+
+}
+
+#clock{
+
+    width:320px;
+
+    margin:20px auto;
+
+    text-align:center;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:18px;
+
+    padding:15px;
+
+    backdrop-filter:blur(8px);
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.container{
+
+    width:95%;
+
+    max-width:950px;
+
+    margin:auto;
+
+}
+
+.card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(8px);
+
+    border-radius:22px;
+
+    margin:25px 0;
+
+    padding:20px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+.left{
+
+    flex:1;
+
+}
+
+.left h2{
+
+    font-size:30px;
+
+    margin-bottom:8px;
+
+}
+
+.date{
+
+    font-size:18px;
+
+    color:#d9f6ff;
+
+}
+
+.countdown{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:18px;
+
+}
+
+.box{
+
+    width:78px;
+
+    background:white;
+
+    color:#004d73;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    padding:10px;
+
+}
+
+.box span{
+
+    display:block;
+
+    font-size:30px;
+
+    font-weight:bold;
+
+}
+
+.box small{
+
+    font-size:13px;
+
+}
+
+.right img{
+
+    width:180px;
+
+    border-radius:18px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.45);
+
+}
+
+footer{
+
+    text-align:center;
+
+    padding:35px;
+
+    font-size:20px;
+
+    text-shadow:1px 1px 5px black;
+
+}
+
+@media(max-width:800px){
+
+.card{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.right{
+
+margin-top:20px;
+
+}
+
+.countdown{
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+.right img{
+
+width:220px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="images/logo.png">
+
+<h1>OTAVA-LIVE</h1>
+
+<p>Odpočítávání do našich společných akcí</p>
+
+</header>
+
+<div id="clock"></div>
+
+<div class="container">
+
+<!-- RYCHLÍK -->
+
+<div class="card">
+
+<div class="left">
+
+<h2>🚆 Rychlík do Ústí</h2>
+
+<div class="date">
+
+8. srpna 2026 • 12:51
+
+</div>
+
+<div class="countdown">
+
+<div class="box">
+<span id="v_d">0</span>
+<small>Dní</small>
+</div>
+
+<div class="box">
+<span id="v_h">0</span>
+<small>Hod</small>
+</div>
+
+<div class="box">
+<span id="v_m">0</span>
+<small>Min</small>
+</div>
+
+<div class="box">
+<span id="v_s">0</span>
+<small>Sek</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<img src="images/rychlik.png">
+
+</div>
+
+</div>
+<!-- ROCK IN ÚSTÍ -->
+
+<div class="card">
+
+<div class="left">
+
+<h2>🎸 Rock in Ústí</h2>
+
+<div class="date">
+
+8. srpna 2026 • 14:00
+
+</div>
+
+<div class="countdown">
+
+<div class="box">
+<span id="r_d">0</span>
+<small>Dní</small>
+</div>
+
+<div class="box">
+<span id="r_h">0</span>
+<small>Hod</small>
+</div>
+
+<div class="box">
+<span id="r_m">0</span>
+<small>Min</small>
+</div>
+
+<div class="box">
+<span id="r_s">0</span>
+<small>Sek</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<img src="images/rockin.jpg">
+
+</div>
+
+</div>
+
+<!-- BEROUNKA -->
+
+<div class="card">
+
+<div class="left">
+
+<h2>🛶 Berounka 2026</h2>
+
+<div class="date">
+
+21. srpna 2026 • 17:00
+
+</div>
+
+<div class="countdown">
+
+<div class="box">
+<span id="b_d">0</span>
+<small>Dní</small>
+</div>
+
+<div class="box">
+<span id="b_h">0</span>
+<small>Hod</small>
+</div>
+
+<div class="box">
+<span id="b_m">0</span>
+<small>Min</small>
+</div>
+
+<div class="box">
+<span id="b_s">0</span>
+<small>Sek</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<img src="images/berounka.png">
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+🌊 Voda • Hudba • Přátelé • Zážitky
+
+</footer>
+<script>
+
+const events = {
+
+vlak:new Date("2026-08-08T12:51:00"),
+
+rock:new Date("2026-08-08T14:00:00"),
+
+ber:new Date("2026-08-21T17:00:00")
+
+};
+
+function countdown(target,prefix){
+
+let now=new Date();
+
+let diff=target-now;
+
+if(diff<0) diff=0;
+
+let days=Math.floor(diff/86400000);
+
+let hours=Math.floor(diff/3600000)%24;
+
+let minutes=Math.floor(diff/60000)%60;
+
+let seconds=Math.floor(diff/1000)%60;
+
+document.getElementById(prefix+"_d").textContent=days;
+
+document.getElementById(prefix+"_h").textContent=hours;
+
+document.getElementById(prefix+"_m").textContent=minutes;
+
+document.getElementById(prefix+"_s").textContent=seconds;
+
+}
+
+function updateClock(){
+
+let now=new Date();
+
+document.getElementById("clock").innerHTML=
+
+now.toLocaleDateString("cs-CZ",{
+
+weekday:"long",
+
+day:"numeric",
+
+month:"long",
+
+year:"numeric"
+
+})
+
++"<br><span style='font-size:34px'>"+
+
+now.toLocaleTimeString("cs-CZ")+
+
+"</span>";
+
+countdown(events.vlak,"v");
+
+countdown(events.rock,"r");
+
+countdown(events.ber,"b");
+
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
 </script>
+
 </body>
+
 </html>
