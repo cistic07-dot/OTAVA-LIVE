@@ -2,161 +2,73 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Berounka 2026 – Odpočítávání</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OTAVA-LIVE</title>
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:linear-gradient(180deg,#0b5fa5,#4fc3f7);
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
-}
-
-.container{
-    width:90%;
-    max-width:900px;
-}
-
-h1{
-    text-align:center;
-    margin-bottom:30px;
-    font-size:42px;
-}
-
-.card{
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(8px);
-    border-radius:20px;
-    padding:25px;
-    margin-bottom:25px;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
-
-.card h2{
-    font-size:30px;
-}
-
-.card p{
-    margin-top:10px;
-    opacity:.9;
-}
-
-.timer{
-    font-size:40px;
-    font-weight:bold;
-    margin-top:20px;
-}
-
-.footer{
-    text-align:center;
-    margin-top:25px;
-    opacity:.8;
-}
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(#0b5fa5,#6ec6ff);color:#fff}
+header{text-align:center;padding:25px}
+h1{margin:0}
+.subtitle{opacity:.9}
+.clock{text-align:center;font-size:22px;margin:10px 0 20px}
+.card{max-width:760px;margin:15px auto;padding:18px;border-radius:16px;background:rgba(255,255,255,.15)}
+.title{font-size:24px;font-weight:bold}
+.count{font-size:30px;margin-top:10px}
+.wave{position:fixed;left:0;right:0;bottom:0;height:60px;background:rgba(255,255,255,.2);animation:wave 5s ease-in-out infinite}
+.train{display:inline-block;animation:train 8s linear infinite}
+@keyframes train{0%{transform:translateX(-30px)}50%{transform:translateX(30px)}100%{transform:translateX(-30px)}}
+@keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 </style>
-
 </head>
 <body>
-
-<div class="container">
-
-<h1>🚣 BEROUNKA 2026</h1>
+<header>
+<h1>🚣 OTAVA-LIVE</h1>
+<div class="subtitle">Odpočítávání do našich společných akcí</div>
+</header>
+<div class="clock" id="clock"></div>
 
 <div class="card">
-<h2>🚆 Rychlík do Ústí nad Labem</h2>
-
-<p>
-8. 8. 2026 • 12:51<br>
-Teplice hlavní nádraží
-</p>
-
-<div id="vlak" class="timer"></div>
-
+<div class="title"><span class="train">🚆</span> Rychlík do Ústí</div>
+<div>8. 8. 2026 • 12:51</div>
+<div class="count" id="vlak"></div>
 </div>
 
 <div class="card">
-
-<h2>🛶 Zveřejnění plakátu Berounka</h2>
-
-<p>
-21. 8. 2026 • 17:00
-</p>
-
-<div id="plakat" class="timer"></div>
-
+<div class="title">🎸 Rock in Ústí</div>
+<div>8. 8. 2026 • 14:00</div>
+<div class="count" id="rock"></div>
 </div>
 
-<div class="footer">
-Odpočítávání se automaticky aktualizuje každou sekundu.
+<div class="card">
+<div class="title">🛶 Berounka – zveřejnění plakátu</div>
+<div>21. 8. 2026 • 17:00</div>
+<div class="count" id="ber"></div>
 </div>
 
-</div>
+<div class="wave"></div>
 
 <script>
-
-const udalosti=[
-{
-id:"vlak",
-datum:new Date("2026-08-08T12:51:00+02:00"),
-konec:"🚆 Vlak odjíždí!"
-},
-{
-id:"plakat",
-datum:new Date("2026-08-21T17:00:00+02:00"),
-konec:"🎉 Plakát je zveřejněn!"
-}
+const events=[
+{id:"vlak",date:new Date("2026-08-08T12:51:00+02:00"),done:"🚆 Vlak odjíždí!"},
+{id:"rock",date:new Date("2026-08-08T14:00:00+02:00"),done:"🎸 Rock začíná!"},
+{id:"ber",date:new Date("2026-08-21T17:00:00+02:00"),done:"🛶 Plakát zveřejněn!"}
 ];
-
-function odpocet(){
-
-const ted=new Date();
-
-udalosti.forEach(e=>{
-
-let rozdil=e.datum-ted;
-
-const el=document.getElementById(e.id);
-
-if(rozdil<=0){
-
-el.innerHTML=e.konec;
-return;
-
+function update(){
+ const now=new Date();
+ document.getElementById("clock").textContent=
+ now.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long",year:"numeric"})+
+ " • "+now.toLocaleTimeString("cs-CZ");
+ events.forEach(e=>{
+   const el=document.getElementById(e.id);
+   let d=e.date-now;
+   if(d<=0){el.textContent=e.done;return;}
+   let days=Math.floor(d/86400000);
+   let h=Math.floor(d/3600000)%24;
+   let m=Math.floor(d/60000)%60;
+   let s=Math.floor(d/1000)%60;
+   el.textContent=`${days} dní ${h} h ${m} min ${s} s`;
+ });
 }
-
-const d=Math.floor(rozdil/86400000);
-
-const h=Math.floor(rozdil/3600000)%24;
-
-const m=Math.floor(rozdil/60000)%60;
-
-const s=Math.floor(rozdil/1000)%60;
-
-el.innerHTML=
-d+" dní "+
-h+" h "+
-m+" min "+
-s+" s";
-
-});
-
-}
-
-odpocet();
-
-setInterval(odpocet,1000);
-
+update();setInterval(update,1000);
 </script>
-
 </body>
 </html>
