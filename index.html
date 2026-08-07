@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Berounka 2026 – Odpočítávání</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:linear-gradient(180deg,#0b5fa5,#4fc3f7);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:42px;
+}
+
+.card{
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(8px);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.card h2{
+    font-size:30px;
+}
+
+.card p{
+    margin-top:10px;
+    opacity:.9;
+}
+
+.timer{
+    font-size:40px;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    opacity:.8;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>🚣 BEROUNKA 2026</h1>
+
+<div class="card">
+<h2>🚆 Rychlík do Ústí nad Labem</h2>
+
+<p>
+8. 8. 2026 • 12:51<br>
+Teplice hlavní nádraží
+</p>
+
+<div id="vlak" class="timer"></div>
+
+</div>
+
+<div class="card">
+
+<h2>🛶 Zveřejnění plakátu Berounka</h2>
+
+<p>
+21. 8. 2026 • 17:00
+</p>
+
+<div id="plakat" class="timer"></div>
+
+</div>
+
+<div class="footer">
+Odpočítávání se automaticky aktualizuje každou sekundu.
+</div>
+
+</div>
+
+<script>
+
+const udalosti=[
+{
+id:"vlak",
+datum:new Date("2026-08-08T12:51:00+02:00"),
+konec:"🚆 Vlak odjíždí!"
+},
+{
+id:"plakat",
+datum:new Date("2026-08-21T17:00:00+02:00"),
+konec:"🎉 Plakát je zveřejněn!"
+}
+];
+
+function odpocet(){
+
+const ted=new Date();
+
+udalosti.forEach(e=>{
+
+let rozdil=e.datum-ted;
+
+const el=document.getElementById(e.id);
+
+if(rozdil<=0){
+
+el.innerHTML=e.konec;
+return;
+
+}
+
+const d=Math.floor(rozdil/86400000);
+
+const h=Math.floor(rozdil/3600000)%24;
+
+const m=Math.floor(rozdil/60000)%60;
+
+const s=Math.floor(rozdil/1000)%60;
+
+el.innerHTML=
+d+" dní "+
+h+" h "+
+m+" min "+
+s+" s";
+
+});
+
+}
+
+odpocet();
+
+setInterval(odpocet,1000);
+
+</script>
+
+</body>
+</html>
