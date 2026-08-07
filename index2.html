@@ -1,1 +1,204 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>VODA-LIVE | Stav vody</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:url("images/pozadi_berounka.png") center center/cover fixed;
+    color:white;
+    min-height:100vh;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(0,55,90,.45);
+    z-index:-1;
+}
+
+header{
+    text-align:center;
+    padding:30px 15px;
+}
+
+header img{
+    width:220px;
+    margin-bottom:10px;
+}
+
+header h1{
+    font-size:52px;
+    text-shadow:2px 2px 8px black;
+}
+
+header p{
+    font-size:22px;
+    color:#e8f7ff;
+}
+
+.container{
+    width:95%;
+    max-width:850px;
+    margin:auto;
+}
+
+.card{
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(8px);
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+.card h2{
+    text-align:center;
+    font-size:34px;
+    margin-bottom:20px;
+}
+
+.info{
+    display:flex;
+    justify-content:space-between;
+    margin:30px 0;
+    font-size:26px;
+}
+
+.value{
+    font-weight:bold;
+    color:#00ff88;
+    font-size:42px;
+}
+
+.state{
+    text-align:center;
+    margin:25px 0;
+    font-size:44px;
+    font-weight:bold;
+    color:#7CFC00;
+}
+
+.update{
+    text-align:center;
+    margin-top:20px;
+    font-size:18px;
+    color:#d8f7ff;
+}
+
+.back{
+    display:block;
+    width:260px;
+    margin:35px auto;
+    text-align:center;
+    text-decoration:none;
+    color:white;
+    background:#0077cc;
+    padding:15px;
+    border-radius:14px;
+    font-size:22px;
+}
+
+.back:hover{
+    background:#005fa3;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="images/logo.png">
+
+<h1>VODA-LIVE</h1>
+
+<p>Aktuální stav vody na Berounce</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>🌊 BEROUNKA – LIBLÍN</h2>
+
+<div class="info">
+<span>📏 Výška hladiny</span>
+<span class="value" id="height">98 cm</span>
+</div>
+
+<div class="info">
+<span>💧 Průtok</span>
+<span class="value" id="flow">18,4 m³/s</span>
+</div>
+
+<div class="state" id="state">
+🟢 IDEÁLNÍ PRO KANOE
+</div>
+
+<div class="update">
+Poslední aktualizace:
+<span id="updateTime">
+7. 8. 2026 15:30
+</span>
+</div>
+
+<a class="back" href="index.html">
+⬅ Zpět na hlavní stránku
+</a>
+
+</div>
+
+</div>
+<script>
+
+// ===== TESTOVACÍ DATA =====
+
+const voda = {
+    stanice: "Liblín",
+    vyska: "98 cm",
+    prutok: "18,4 m³/s",
+    stav: "🟢 IDEÁLNÍ PRO KANOE",
+    aktualizace: "7. 8. 2026 15:30"
+};
+
+// ===== ZOBRAZENÍ DAT =====
+
+document.getElementById("height").innerHTML = voda.vyska;
+document.getElementById("flow").innerHTML = voda.prutok;
+document.getElementById("state").innerHTML = voda.stav;
+document.getElementById("updateTime").innerHTML = voda.aktualizace;
+
+// ===== AUTOMATICKÉ OBNOVENÍ =====
+// Později zde načteme aktuální data z ČHMÚ.
+
+</script>
+
+<footer>
+
+🌊 VODA-LIVE • Berounka • Liblín
+
+</footer>
+
+</body>
+</html>
