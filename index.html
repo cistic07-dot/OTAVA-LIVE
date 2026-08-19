@@ -286,66 +286,41 @@ width:240px;
     background:linear-gradient(90deg,#0099ee,#00d4ff);
 
 
-} 
+}
+
+
 /* ===== VIKI RADÍ ===== */
-
 .vikiTip{
-
     width:420px;
-
+    max-width:90%;
     margin:20px auto 35px;
-
     padding:20px;
-
     background:rgba(255,255,255,.18);
-
     backdrop-filter:blur(8px);
-
     border-radius:20px;
-
     text-align:center;
-
     box-shadow:0 8px 20px rgba(0,0,0,.35);
-
 }
-
 .vikiTip h3{
-
     margin-bottom:15px;
-
     font-size:28px;
-
 }
-
 .vikiState{
-
     display:inline-block;
-
     background:#1aa64a;
-
     color:white;
-
     padding:10px 22px;
-
     border-radius:12px;
-
     font-size:24px;
-
     font-weight:bold;
-
-    margin-bottom:15px;
-
 }
-
 .vikiTip p{
-
     margin-top:15px;
-
     font-size:22px;
-
     font-style:italic;
-
 }
+.birthdayCard h2, .birthdayCard .date{color:#e72d68;}
+.tennisCard h2, .tennisCard .date{color:#168b32;}
 
 </style>
 
@@ -367,102 +342,7 @@ width:240px;
 
 <div class="container">
 
-<!-- RYCHLÍK -->
-
-<div class="card">
-
-<div class="left">
-
-<h2>🎾 Tenisový turnaj</h2>
-
-<div class="date">
-
-12. ZÁŘÍ 2026 • 9:00
-
-</div>
-
-<div class="countdown">
-
-<div class="box">
-<span id="v_d">0</span>
-<small>Dní</small>
-</div>
-
-<div class="box">
-<span id="v_h">0</span>
-<small>Hod</small>
-</div>
-
-<div class="box">
-<span id="v_m">0</span>
-<small>Min</small>
-</div>
-
-<div class="box">
-<span id="v_s">0</span>
-<small>Sek</small>
-</div>
-
-</div>
-
-</div>
-
-<div class="right">
-
-<img src="images/Tenis.png">
-
-</div>
-
-</div>
-<!-- ROCK IN ÚSTÍ -->
-
-<div class="card">
-
-<div class="left">
-
-<h2>🎂 Narozeniny</h2>
-
-<div class="date">
-
-29. srpna 2026 • 17:00 Zámecké nádraží
-
-</div>
-
-<div class="countdown">
-
-<div class="box">
-<span id="r_d">0</span>
-<small>Dní</small>
-</div>
-
-<div class="box">
-<span id="r_h">0</span>
-<small>Hod</small>
-</div>
-
-<div class="box">
-<span id="r_m">0</span>
-<small>Min</small>
-</div>
-
-<div class="box">
-<span id="r_s">0</span>
-<small>Sek</small>
-</div>
-
-</div>
-
-</div>
-
-<div class="right">
-
-<img src="images/rendan.png">
-
-</div>
-
-</div>
-
-<!-- BEROUNKA -->
+<!-- BEROUNKA 2026 -->
 
 <div class="card">
 
@@ -504,7 +384,103 @@ width:240px;
 
 <div class="right">
 
-<img src="images/berounka.png" class="berounka">    
+<img src="images/berounka.png" class="berounka">
+
+</div>
+
+</div>
+
+<!-- NAROZENINY -->
+
+<div class="card birthdayCard">
+
+<div class="left">
+
+<h2>🎂 Narozeniny</h2>
+
+<div class="date">
+
+29. srpna 2026 • 17:00
+
+</div>
+
+<div class="countdown">
+
+<div class="box">
+<span id="r_d">0</span>
+<small>Dní</small>
+</div>
+
+<div class="box">
+<span id="r_h">0</span>
+<small>Hod</small>
+</div>
+
+<div class="box">
+<span id="r_m">0</span>
+<small>Min</small>
+</div>
+
+<div class="box">
+<span id="r_s">0</span>
+<small>Sek</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<img src="images/narozeniny.png">
+
+</div>
+
+</div>
+
+<!-- TENISOVÝ TURNAJ -->
+
+<div class="card tennisCard">
+
+<div class="left">
+
+<h2>🎾 Tenisový turnaj</h2>
+
+<div class="date">
+
+12. září 2026 • 9:00
+
+</div>
+
+<div class="countdown">
+
+<div class="box">
+<span id="v_d">0</span>
+<small>Dní</small>
+</div>
+
+<div class="box">
+<span id="v_h">0</span>
+<small>Hod</small>
+</div>
+
+<div class="box">
+<span id="v_m">0</span>
+<small>Min</small>
+</div>
+
+<div class="box">
+<span id="v_s">0</span>
+<small>Sek</small>
+</div>
+
+</div>
+
+</div>
+
+<div class="right">
+
+<img src="images/tenis.png">
 
 </div>
 
@@ -513,23 +489,15 @@ width:240px;
 </div>
 
 <a href="index2.html" class="waterButton">
-    🌊 Aktuální stav vody Berounka KLIKNI
+    🌊 Aktuální stav vody Berounka
 </a>
 
 <div class="vikiTip">
+    <h3>👤 VIKI RADÍ</h3>
+    <div class="vikiState">🟢 IDEÁLNÍ PRO KANOE</div>
+    <p>„Tak balíme pádla!“ 🚣</p>
+</div>
 
-    <h3>👤 VIKI RADÍ INFORMUJE </h3>
-
-    <div class="vikiState">
-        🟢 IDEÁLNÍ PRO NÁS
-    </div>
-
-    <p>
-        „Tak balíme pádla!“ 🚣
-    </p>
-
-</div> 
-    
 <footer>
 
 🌊 Voda • Hudba • Přátelé • Zážitky
@@ -539,9 +507,9 @@ width:240px;
 
 const events = {
 
-vlak:new Date("2026-09-12T09:00:00"),
+tenis:new Date("2026-09-12T09:00:00"),
 
-rock:new Date("2026-08-29T17:00:00"),
+narozeniny:new Date("2026-08-29T17:00:00"),
 
 ber:new Date("2026-08-21T17:00:00")
 
@@ -597,9 +565,9 @@ now.toLocaleTimeString("cs-CZ")+
 
 "</span>";
 
-countdown(events.vlak,"v");
+countdown(events.tenis,"v");
 
-countdown(events.rock,"r");
+countdown(events.narozeniny,"r");
 
 countdown(events.ber,"b");
 
